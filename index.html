@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Página con Historial</title>
+</head>
+<body>
+  <h1>Hola, esta es mi primera web</h1>
+  <p>Versión 1.0</p>
+
+  <h3>Historial de cambios en vivo:</h3>
+  <ul id="historial">Cargando historial...</ul>
+
+  <script>
+    // REEMPLAZA 'TU_USUARIO' con tu nombre de usuario real de GitHub
+    const usuario = 'estujjgs-ozz'; 
+    const repo = 'mi-primera-web';
+    const url = `https://github.com{usuario}/${repo}/commits`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(commits => {
+        const lista = document.getElementById('historial');
+        lista.innerHTML = '';
+
+        commits.forEach(item => {
+          const li = document.createElement('li');
+          const fecha = new Date(item.commit.author.date).toLocaleDateString();
+          li.textContent = `[${fecha}] - ${item.commit.message}`;
+          lista.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
+
